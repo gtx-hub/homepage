@@ -1055,7 +1055,6 @@ h6 {
 }
 
 .faq-section {
-  margin-top: 70px;
 
   summary {
     list-style: none;
@@ -1504,3 +1503,27 @@ h6 {
       font-size: 0.875rem !important;
     }
   }
+
+
+.faq-title {
+  text-align: center;
+  font-size: 2.75rem;
+  font-weight: 700;
+  padding-bottom: 4rem;
+}
+
+.faq-space{
+  margin-top: 4rem;
+}
+
+@media (max-width: 768px) {
+  .faq-title {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 575px) {
+  .faq-title {
+    font-size: 1.75rem;
+  }
+}
