@@ -17,6 +17,18 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   /**
+   * Notification Bar
+   */
+  const notificationBar = document.querySelector(".notification-bar");
+
+  if (notificationBar) {
+    // Clone the inner children
+    const clonedChildren = Array.from(notificationBar.children).map(child => child.cloneNode(true));
+    // Append the cloned children back
+    clonedChildren.forEach(clone => notificationBar.appendChild(clone));
+  }
+
+  /**
    * Mobile nav toggle
    */
   const mobileNavShow = document.querySelector(".mobile-nav-show");
@@ -171,7 +183,7 @@ document.addEventListener("DOMContentLoaded", () => {
 document
   .getElementById("subscribeForm")
   .addEventListener("submit", async function (e) {
-    e.preventDefault(); // prevent normal form submission
+    e.preventDefault();
 
     const email = document.getElementById("email").value;
 
@@ -195,3 +207,120 @@ document
       alert("❌ Network error. Please check your connection.");
     }
   });
+
+/**
+ * Gen button
+ */
+const gen = document.querySelector(".gen");
+const genClose = document.querySelector(".gen-close");
+const chatWrapper = document.querySelector(".chatbot-wrapper");
+
+function cleanChatBox() {
+  document.querySelector(".chatbot-box").innerHTML = `
+    <div class="item">
+        <div class="msg">
+          <p>Hi, I’m Gnosis. How can I assist you today?</p>
+        </div>
+      </div>
+      <br clear="both" />
+  `;
+}
+
+function openChatWrapper() {
+  gen.classList.add("deactive");
+  chatWrapper.classList.add("active");
+}
+
+function closeChatWrapper() {
+  chatWrapper.classList.remove("active");
+  gen.classList.remove("deactive");
+  cleanChatBox();
+}
+
+gen.addEventListener("click", openChatWrapper);
+genClose.addEventListener("click", closeChatWrapper);
+
+const input = document.querySelector(".typing-area .input-field input");
+const sendBtn = document.getElementById("sendBtn");
+const chatBox = document.querySelector(".chatbot-box");
+
+function getTemplate(who, text) {
+  let txt = "";
+
+  if (who == "user") {
+    txt = `
+    <div class="item right">
+        <div class="msg">
+          <p>${text}</p>
+        </div>
+      </div>
+      <br clear="both">
+  `;
+  } else {
+    txt = `
+    <div class="item">
+        <div class="msg">
+          <p>${text}</p>
+        </div>
+      </div>
+      <br clear="both">
+  `;
+  }
+  return txt;
+}
+
+function addChatBubble(who, text) {
+  const template = getTemplate(who, text);
+  chatBox.insertAdjacentHTML("beforeend", template);
+  answering();
+}
+
+sendBtn.addEventListener("click", () => {
+  addChatBubble("user", input.value); // logs the text typed
+  input.value = ""; // clear input after sending
+});
+
+input.addEventListener("keypress", (e) => {
+  if (e.key === "Enter") {
+    addChatBubble("user", input.value);
+    input.value = "";
+  }
+});
+
+function answering(question) {
+  waiting();
+  getAnswer(question);
+}
+
+function waiting() {
+  const waiting = `
+    <div class="item answering">
+        <div class="msg">
+          <p>Genarating<span> ...</span></p>
+        </div>
+      </div>
+  `;
+
+  chatBox.insertAdjacentHTML("beforeend", waiting);
+}
+
+async function getAnswer(question) {
+  try {
+    const response = await fetch("https://gtx.pythonanywhere.com/subscribe", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ question }),
+    });
+
+    if (response.ok) {
+      console.log(response);
+    } else {
+      console.log(response);
+    }
+  } catch (error) {
+    console.error("Error:", error);
+    alert("❌ Network error. Please check your connection.");
+  }
+}

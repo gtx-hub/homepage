@@ -25,7 +25,7 @@
 body {
   font-family: var(--font-default);
   color: var(--color-default);
-  background-color: #000;
+  background-color: black;
   padding-inline: 4rem;
   background-image: url("/assets/img/background.png");
   background-size: 180% auto;
@@ -287,6 +287,8 @@ h6 {
 # Header
 --------------------------------------------------------------*/
 .header {
+  margin-left: -4rem;
+  width: 100dvw;
   transition: all 0.5s;
   z-index: 997;
   padding: 30px 0;
@@ -962,7 +964,7 @@ h6 {
   min-height: 30vh;
   background-size: cover;
   position: relative;
-  padding: 140px 0 60px 0;
+  padding: 56px 0 60px 0;
 }
 
 .hero h2 {
@@ -1019,6 +1021,7 @@ h6 {
   .hero h2 {
     font-size: 32px;
   }
+
   .gallery-item h3 {
     font-size: 1.2rem;
   }
@@ -1055,12 +1058,12 @@ h6 {
 }
 
 .faq-section {
-
   summary {
     list-style: none;
     cursor: pointer;
     position: relative;
-    padding-right: 2em; /* space for icon */
+    padding-right: 2em;
+    /* space for icon */
     font-size: 1.5rem;
   }
 
@@ -1380,6 +1383,7 @@ h6 {
     font-weight: 700;
   }
 }
+
 @media (max-width: 768px) {
   .help-cloud h2 {
     font-size: 32px;
@@ -1461,7 +1465,7 @@ h6 {
   }
 
   .answer {
-    color: #000;
+    color: hsl(0, 0%, 0%);
     padding-right: 3.25rem;
   }
 }
@@ -1493,17 +1497,16 @@ h6 {
 }
 
 @media (min-width: 769px) {
-    .event-text {
-      font-size: 1rem !important;
-    }
+  .event-text {
+    font-size: 1rem !important;
   }
+}
 
 @media (max-width: 768px) {
-    .event-text {
-      font-size: 0.875rem !important;
-    }
+  .event-text {
+    font-size: 0.875rem !important;
   }
-
+}
 
 .faq-title {
   text-align: center;
@@ -1512,7 +1515,7 @@ h6 {
   padding-bottom: 4rem;
 }
 
-.faq-space{
+.faq-space {
   margin-top: 4rem;
 }
 
@@ -1525,5 +1528,261 @@ h6 {
 @media (max-width: 575px) {
   .faq-title {
     font-size: 1.75rem;
+  }
+}
+
+/*--------------------------------------------------------------
+# Scroll top button
+--------------------------------------------------------------*/
+.gen {
+  position: fixed;
+  visibility: visible;
+  opacity: 1;
+  bottom: 100px;
+  right: 15px;
+  z-index: 99999;
+  background: var(--color-primary);
+  width: 44px;
+  height: 44px;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.4s;
+
+  img {
+    width: 50%;
+    height: 50%;
+    border: transparent solid 1px;
+  }
+}
+
+.deactive {
+  visibility: hidden;
+  opacity: 0;
+  bottom: -100px;
+}
+
+.chatbot-wrapper.active {
+  visibility: visible;
+  opacity: 1;
+  bottom: 100px;
+}
+
+.chatbot-wrapper {
+  position: fixed;
+  visibility: hidden;
+  opacity: 0;
+  bottom: -100px;
+  right: 15px;
+  z-index: 99999;
+  width: 370px;
+  background: var(--color-secondary);
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.chatbot-wrapper .chatbot-header {
+  display: flex;
+  border-radius: 5px 5px 0 0;
+  padding-inline: 10px;
+  color: white;
+  line-height: 2.5;
+  text-align: left;
+  font-size: 20px;
+  justify-content: space-between;
+
+  i {
+    cursor: pointer;
+  }
+}
+
+.chatbot-wrapper .chatbot-box {
+  border: 1px solid #efefef;
+  padding: 10px 15px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  height: 60dvh;
+  overflow-y: scroll;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  transition: all 0.4s;
+}
+
+.chatbot-wrapper .chatbot-box .item {
+  float: left;
+  margin: 10px 0;
+}
+
+.chatbot-wrapper .chatbot-box .item .icon {
+  background: #007bff;
+  color: white;
+  width: 40px;
+  height: 40px;
+  text-align: center;
+  line-height: 40px;
+  border-radius: 50%;
+}
+
+.chatbot-wrapper .chatbot-box .item .msg {
+  background: #007bff;
+  color: white;
+  border-radius: 10px;
+  min-width: 150px;
+  max-width: calc(100% - 2.5rem);
+}
+
+.chatbot-wrapper .chatbot-box .item .msg p {
+  padding: 10px;
+}
+
+.chatbot-wrapper .chatbot-box .item.right {
+  float: right;
+}
+
+.chatbot-wrapper .chatbot-box .item.right .msg {
+  background: #efefef;
+  color: #333;
+}
+
+.chatbot-wrapper .typing-area {
+  width: 100%;
+  background: #efefef;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+}
+
+.chatbot-wrapper .typing-area .input-field {
+  width: 100%;
+  position: relative;
+  border-radius: 10px;
+}
+
+.chatbot-wrapper .typing-area .input-field input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+  padding-right: 70px;
+  font-family: "Poppins", sans-serif;
+  transition: 0.3s all ease;
+}
+
+.chatbot-wrapper .typing-area .input-field input:focus {
+  border-color: #007bff;
+}
+
+.chatbot-wrapper .typing-area .input-field button {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  background: transparent;
+  border: 1px solid #007bff;
+  padding: 5px 10px;
+  border-radius: 3px;
+  color: #007bff;
+  outline: none;
+  cursor: pointer;
+  opacity: 0;
+  pointer-events: none;
+  transition: 0.3s all ease;
+}
+
+.chatbot-wrapper .typing-area .input-field button:hover {
+  background: #007bff;
+  color: white;
+}
+
+.chatbot-wrapper .typing-area .input-field input:valid ~ button {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.chatbot-wrapper .chatbot-box .item.answering .msg {
+  p {
+    opacity: 1;
+    animation: blink 750ms linear infinite;
+  }
+
+  span {
+    position: relative;
+    position: relative;
+    width: max-content;
+  }
+
+  span::before,
+  span::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+  }
+
+  span::before {
+    background: #007bff;
+    animation: typewriter 1s steps(10) 1s forwards infinite;
+  }
+}
+
+@keyframes blink {
+  to {
+    opacity: 0.25;
+  }
+}
+
+@keyframes typewriter {
+  to {
+    left: 100%;
+  }
+}
+
+/*--------------------------------------------------------------
+# Notification Bar
+--------------------------------------------------------------*/
+.notification-wrapper {
+  background: hsl(0, 0%, 100%);
+  margin-left: -4rem;
+  width: 100dvw;
+  height: 56px;
+  color: black;
+  font-weight: 600;
+  overflow-y: hidden;
+  overflow-x: scroll;
+
+  .notification-bar {
+    animation: scroll-left 20s forwards linear infinite;
+    white-space: nowrap;
+    overflow: hidden;
+    display: inline-flex;
+    gap: 2rem;
+    height: 100%;
+
+    p {
+      margin-block: auto;
+      display: inline-flex;
+
+      a {
+        text-decoration: none;
+        color: #000;
+      }
+    }
+  }
+}
+
+@media (max-width: 575px) {
+  .notification-wrapper {
+    height: 48px;
+  }
+}
+
+@keyframes scroll-left {
+  to {
+    transform: translateX(calc(-50% - 1rem));
   }
 }
